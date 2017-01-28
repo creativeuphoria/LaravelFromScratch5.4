@@ -16,5 +16,17 @@ Route::get('/', function () {
 });
 
 Route::get('/about', function () {
-   return view('about');
+
+    $todoList = [
+        'Learn Laravel 5.4 from scratch',
+        'Watch Liverpool vs Wolves',
+        'Clean the house',
+        'Wash the car'
+    ];
+
+    return view('about', [
+       'pageName' => 'About Us',
+       'todoList' => $todoList
+    ]);
+
 });
