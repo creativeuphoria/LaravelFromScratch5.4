@@ -11,22 +11,38 @@
 |
 */
 
+// Home
 Route::get('/', function () {
     return view('welcome');
 });
 
+// About Us
 Route::get('/about', function () {
-
-    $todoList = [
-        'Learn Laravel 5.4 from scratch',
-        'Watch Liverpool vs Wolves',
-        'Clean the house',
-        'Wash the car'
-    ];
-
     return view('about', [
-       'pageName' => 'About Us',
-       'todoList' => $todoList
+        'pageName' => 'About Us'
+    ]);
+});
+
+// Tasks
+Route::get('/tasks', function () {
+
+    $taskList = DB::table('tasks')->latest()->get();
+
+    return view('tasks.index', [
+       'pageName' => 'Tasks',
+       'taskList' => $taskList
+    ]);
+
+});
+
+// Tasks -> Task
+Route::get('/tasks/{id}', function ($id) {
+
+    $task = DB::table('tasks')->find($id);
+
+    return view('tasks.task', [
+       'pageName' => 'Tasks &rarr; ' . $id,
+       'task' => $task
     ]);
 
 });
